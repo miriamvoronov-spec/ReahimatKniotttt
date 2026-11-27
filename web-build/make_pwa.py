@@ -33,6 +33,9 @@ HEAD = '''<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
 <title>רשימרקט</title>
 <style>
+.hhead svg{width:150px;height:150px}.brand svg{width:70px;height:70px}
+@media(min-width:1100px){.hhead svg{width:176px;height:176px}}
+@media(max-width:400px){.brand svg{width:58px;height:58px}}
 .htile.inst{grid-column:1/-1;min-height:64px;flex-direction:row;gap:12px;background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .htile.inst small{color:inherit;opacity:.75}
 body.pwa-in .htile.inst{display:none}
@@ -86,6 +89,8 @@ INSTALL_TILE = ('סיימתי קנייה</button><button class="htile inst" data
                 '<span class="e" style="font-size:30px">📲</span><span>התקנה כאפליקציה'
                 '<small style="display:block">אייקון במסך הבית, עובד גם בלי אינטרנט</small></span></button></div>')
 sub('סיימתי קנייה</button></div>', INSTALL_TILE)
+# Crop the logo's empty margins so the basket fills its box.
+sub('<svg viewBox="0 0 200 200" role="img"', '<svg viewBox="18 18 168 168" role="img"')
 sub('נשמר בדפדפן הזה', 'נשמר במכשיר הזה', 4)
 sub('הרשימה נשמרת אוטומטית בענן, וכל שינוי בדף הזה מתעדכן בלי להתקין כלום. כל מי שפותח את הדף מקבל רשימה פרטית משלו.',
     'הרשימה נשמרת במכשיר הזה. כדאי לשמור מדי פעם גיבוי לקובץ, ואפשר לשחזר אותו גם במכשיר אחר. האפליקציה מתעדכנת לבד בכל שינוי.')
