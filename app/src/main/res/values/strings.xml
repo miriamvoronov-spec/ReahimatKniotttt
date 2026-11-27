@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">רשימרקט</string>
+    <string name="widget_name">רשימרקט: מה חסר</string>
+    <string name="widget_desc">כמה מוצרים חסרים ברשימה הפעילה</string>
+</resources>
