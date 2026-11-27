@@ -15,6 +15,8 @@ data class AppSettings(
     val gradientTop: Int? = null,
     val gradientBottom: Int? = null,
     val sounds: Boolean = true,
+    /** צבע הכתב. null = ברירת מחדל */
+    val textColor: Int? = null,
     val showSummary: Boolean = true,
     val showSearch: Boolean = true,
     val showActions: Boolean = true,
@@ -41,6 +43,7 @@ class SettingsRepository(context: Context) {
         gradientTop = if (prefs.getBoolean("gradient", false)) prefs.getInt("g1", 0) else null,
         gradientBottom = if (prefs.getBoolean("gradient", false)) prefs.getInt("g2", 0) else null,
         sounds = prefs.getBoolean("sounds", true),
+        textColor = if (prefs.contains("textColor")) prefs.getInt("textColor", 0) else null,
         showSummary = prefs.getBoolean("showSummary", true),
         showSearch = prefs.getBoolean("showSearch", true),
         showActions = prefs.getBoolean("showActions", true),
@@ -56,6 +59,7 @@ class SettingsRepository(context: Context) {
             .putInt("g1", s.gradientTop ?: 0)
             .putInt("g2", s.gradientBottom ?: 0)
             .putBoolean("sounds", s.sounds)
+            .apply { if (s.textColor != null) putInt("textColor", s.textColor) else remove("textColor") }
             .putBoolean("showSummary", s.showSummary)
             .putBoolean("showSearch", s.showSearch)
             .putBoolean("showActions", s.showActions)

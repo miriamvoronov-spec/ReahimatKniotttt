@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                 else SystemBarStyle.light(AColor.TRANSPARENT, AColor.TRANSPARENT)
                 enableEdgeToEdge(statusBarStyle = style, navigationBarStyle = style)
             }
-            ReshimarketTheme(dark = dark, fontSize = settings.fontSize) {
+            ReshimarketTheme(dark = dark, fontSize = settings.fontSize, textColor = settings.textColor) {
                 App(vm)
             }
         }

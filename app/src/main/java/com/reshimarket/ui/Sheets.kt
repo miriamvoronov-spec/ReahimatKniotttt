@@ -455,7 +455,7 @@ private fun SettingsSheet(vm: MainViewModel) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val s by vm.settings.collectAsStateWithLifecycle()
-    var editing by remember { mutableIntStateOf(0) } // 0 = סגור, 1 = עליון, 2 = תחתון
+    var editing by remember { mutableIntStateOf(0) } // 0 = סגור, 1 = עליון, 2 = תחתון, 3 = צבע כתב
 
     val exportLauncher = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { uri ->
         if (uri != null) scope.launch {
@@ -498,6 +498,21 @@ private fun SettingsSheet(vm: MainViewModel) {
         Muted("גדול במיוחד לסופר", size = 13.sp)
     }
 
+    Text("צבע כתב", fontWeight = FontWeight.Medium, modifier = Modifier.padding(top = 16.dp, bottom = 8.dp))
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        Swatch("כתב", c.ink, editing == 3) { editing = if (editing == 3) 0 else 3 }
+        Text("ככה ייראה הטקסט", fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+        AppButton("ברירת מחדל", BtnKind.Ghost) {
+            if (editing == 3) editing = 0
+            vm.updateSettings { it.copy(textColor = null) }
+        }
+    }
+    if (editing == 3) {
+        androidx.compose.runtime.key(3) {
+            ColorWheel(c.ink, { col -> vm.updateSettings { it.copy(textColor = col.toArgb()) } }, Modifier.padding(top = 10.dp))
+        }
+    }
+
     SectionTitle("רקע")
     ToggleRow("מדפי סופר ברקע", s.shelves) { v -> vm.updateSettings { it.copy(shelves = v) } }
     Text("גרדיאנט בשני צבעים", fontWeight = FontWeight.Medium, modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
@@ -509,7 +524,7 @@ private fun SettingsSheet(vm: MainViewModel) {
             vm.updateSettings { it.copy(gradientTop = null, gradientBottom = null) }
         }
     }
-    if (editing != 0) {
+    if (editing == 1 || editing == 2) {
         val start = (if (editing == 1) s.gradientTop else s.gradientBottom)?.let { Color(it) } ?: c.bg
         androidx.compose.runtime.key(editing) {
             ColorWheel(start, { col ->

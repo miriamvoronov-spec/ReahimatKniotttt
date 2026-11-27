@@ -61,8 +61,10 @@ val DarkColors = AppColors(
 val LocalAppColors = staticCompositionLocalOf { LightColors }
 
 @Composable
-fun ReshimarketTheme(dark: Boolean, fontSize: Int, content: @Composable () -> Unit) {
-    val c = if (dark) DarkColors else LightColors
+fun ReshimarketTheme(dark: Boolean, fontSize: Int, textColor: Int? = null, content: @Composable () -> Unit) {
+    val baseColors = if (dark) DarkColors else LightColors
+    // צבע כתב שנבחר בהגדרות מחליף את צבע הטקסט הראשי
+    val c = if (textColor != null) baseColors.copy(ink = Color(textColor)) else baseColors
     val scheme = if (dark) darkColorScheme(
         primary = c.ink, onPrimary = c.bg, background = c.bg, onBackground = c.ink, surface = c.card,
         onSurface = c.ink, surfaceContainerLow = c.card, surfaceContainer = c.card, surfaceContainerHigh = c.card,
