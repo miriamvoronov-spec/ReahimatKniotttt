@@ -4,6 +4,13 @@
 
 ## איך מורידים את האפליקציה
 
+הדרך הקלה: פותחים בטלפון את הקישור הזה, והקובץ יורד ישירות:
+**https://github.com/miriamvoronov-spec/ReahimatKniotttt/releases/latest/download/reshimarket.apk**
+
+הקישור תמיד מצביע על הגרסה האחרונה שנבנתה מ-main.
+
+דרך נוספת, דרך GitHub Actions:
+
 1. נכנסים ללשונית **Actions** במאגר הזה ב-GitHub.
 2. בוחרים את הריצה האחרונה של **Build APK** שמסומנת בווי ירוק.
 3. בתחתית העמוד, תחת **Artifacts**, לוחצים על **reshimarket-apk**. יורד קובץ ZIP.
