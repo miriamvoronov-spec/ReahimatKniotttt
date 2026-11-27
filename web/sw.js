@@ -1,4 +1,4 @@
-/* רשימרקט service worker, build 1795792878.
+/* רשימרקט service worker, build 1795810197.
    Network first for the app itself, so every launch online gets the latest
    version; the cached copy is used when offline. */
 const CACHE = 'reshimarket-v1';
