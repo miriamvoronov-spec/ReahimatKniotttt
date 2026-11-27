@@ -125,9 +125,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         // עדכון הווידג'ט כשמספר החסרים משתנה
         viewModelScope.launch {
             currentList.map { it?.id }.distinctUntilChanged()
-                .flatMapLatest { id -> if (id == null) flowOf(-1) else repo.observeMissingCount(id).map { id * 100000 + it } }
+                .flatMapLatest { id -> if (id == null) flowOf(-1L) else repo.observeMissingCount(id).map { id * 100000L + it } }
                 .distinctUntilChanged().debounce(400)
-                .collect { MissingWidget.refresh(getApplication()) }
+                .collect { MissingWidget.refresh(getApplication<Application>()) }
         }
     }
 

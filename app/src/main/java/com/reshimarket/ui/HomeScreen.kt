@@ -455,7 +455,7 @@ private fun HomeList(
                         modifier = base.background(cardBg).padding(horizontal = 8.dp).dropIndicator(drag, e.key, c.sun),
                         grip = Modifier.dragHandle(drag, e.key),
                         onPos = { fx.emojiPos[e.item.id] = it },
-                        onDispose = { fx.emojiPos.remove(e.item.id) },
+                        onGone = { fx.emojiPos.remove(e.item.id) },
                         onClick = { onItemClick(e.item) },
                         onMenu = { vm.openItem(e.item) },
                     )
@@ -652,7 +652,7 @@ private fun ItemRowView(
     modifier: Modifier,
     grip: Modifier,
     onPos: (Offset) -> Unit,
-    onDispose: () -> Unit,
+    onGone: () -> Unit,
     onClick: () -> Unit,
     onMenu: () -> Unit,
 ) {
@@ -673,7 +673,7 @@ private fun ItemRowView(
             flash.animateTo(0f, tween(450))
         }
     }
-    DisposableEffect(item.id) { onDispose { onDispose() } }
+    DisposableEffect(item.id) { onDispose { onGone() } }
 
     Box(modifier.fillMaxWidth().padding(bottom = 6.dp)) {
         Row(
