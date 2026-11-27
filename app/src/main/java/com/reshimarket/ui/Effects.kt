@@ -104,10 +104,16 @@ private val FlyEasing = CubicBezierEasing(0.35f, 0.1f, 0.35f, 1f)
 /** האימוג'י שקופץ במסלול קשת עם סיבוב תלת-ממדי */
 @Composable
 fun FlightsLayer(fx: FxState) {
-    Box(Modifier.fillMaxSize()) {
-        for (f in fx.flights.toList()) {
-            androidx.compose.runtime.key(f.id) {
-                FlightView(f) { fx.flights.remove(f) }
+    // הקואורדינטות של המסלול הן מוחלטות (משמאל לימין), ולכן השכבה הזו לא משתקפת ב-RTL.
+    // בלי זה האימוג'י היה עף לצד הנגדי של המסך במקום לעגלה.
+    androidx.compose.runtime.CompositionLocalProvider(
+        androidx.compose.ui.platform.LocalLayoutDirection provides androidx.compose.ui.unit.LayoutDirection.Ltr,
+    ) {
+        Box(Modifier.fillMaxSize()) {
+            for (f in fx.flights.toList()) {
+                androidx.compose.runtime.key(f.id) {
+                    FlightView(f) { fx.flights.remove(f) }
+                }
             }
         }
     }
