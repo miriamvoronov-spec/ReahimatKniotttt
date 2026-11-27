@@ -57,6 +57,11 @@ object TextTools {
                 continue
             }
             var have = false
+            // תיבות סימון מאפליקציות פתקים: "[ ]" חסר, "[x]" יש
+            Regex("^\\[\\s*([xX✓✔])?\\s*]\\s*").find(line)?.let { m ->
+                if (m.groupValues[1].isNotEmpty()) have = true
+                line = line.substring(m.range.last + 1)
+            }
             when {
                 line.startsWith("🟢") -> { have = true; line = line.removePrefix("🟢") }
                 line.startsWith("🔴") -> line = line.removePrefix("🔴")
